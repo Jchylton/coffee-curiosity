@@ -1,27 +1,74 @@
 import React from "react";
 import "mapbox-gl/dist/mapbox-gl.css";
-import ReactMapGl from "react-map-gl";
-import { useState } from "react";
+import ReactMapGl, { Marker, Room } from "react-map-gl";
+import { useState, useEffect } from "react";
+import RecommendationPage from "./RecommendationPage";
+import RoomIcon from "@mui/icons-material/Room";
 
 const TOKEN =
   "pk.eyJ1IjoiamNoeWx0b24iLCJhIjoiY2xxNGhtY242MDdydjJrbXQ1ZWZxZjI2NCJ9.xolos8FfF0kzz3XMdJSGmw";
 
+const TOKEN2 = "bad348c5308142d4b04a8abeae954d98";
+
 const HomePage = () => {
+  const [newPlace, setNewPlace] = useState(null);
   const [viewPort, setViewPort] = useState({
-    latitude: 28.6448,
-    longitude: 77.216,
-    zoom: 6,
+    latitude: 43.4516,
+    longitude: -80.495064,
+    zoom: 16,
   });
+
+  const [coffeeShops, setCoffeeShops] = useState([]);
+  useEffect(() => {
+    fetch(
+      `https://api.geoapify.com/v2/places?categories=catering.cafe.coffee_shop,catering.cafe.coffee,catering.cafe&filter=circle:-80.495064,43.4516,1000&limit=20&apiKey=${TOKEN2}`
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        setCoffeeShops(data.features);
+      });
+  }, []);
+  function handleClick(e) {
+    console.log(newPlace);
+    console.log(e.lngLat);
+    const { lat, lng } = e.lngLat;
+    setNewPlace({
+      lat: lat,
+      long: lng,
+    });
+  }
   return (
-    <div style={{ width: "100vw", height: "100vh" }}>
+    <div style={{ width: "100vw", height: "100vh", zIndex: 999 }}>
       <ReactMapGl
         {...viewPort}
         mapboxAccessToken={TOKEN}
         width="100%"
         height="100%"
-        transitionDuration="200"
+        transitionDuration="100"
         mapStyle="mapbox://styles/jchylton/clq4ipfqv01ap01qmarzc99ez"
-      ></ReactMapGl>
+        onViewportChange={(viewPort) => setViewPort(viewPort)}
+        onDblClick={handleClick}
+      >
+        {coffeeShops.map((e) => {
+          return (
+            <Marker
+              latitude={e?.properties.lat}
+              longitude={e?.properties.lon}
+              offsetLeft={-3.5 * viewPort.zoom}
+              offsetTop={-7 * viewPort.zoom}
+            >
+              <RoomIcon
+                style={{
+                  fontSize: 4 * viewPort.zoom,
+                  color: "tomato",
+                  cursor: "pointer",
+                }}
+              />
+            </Marker>
+          );
+        })}
+      </ReactMapGl>
     </div>
   );
 };
