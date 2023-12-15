@@ -15,7 +15,7 @@ const HomePage = () => {
   const [viewPort, setViewPort] = useState({
     latitude: 43.4516,
     longitude: -80.495064,
-    zoom: 16,
+    zoom: 13,
   });
 
   const [coffeeShops, setCoffeeShops] = useState([]);
@@ -43,12 +43,13 @@ const HomePage = () => {
       <ReactMapGl
         {...viewPort}
         mapboxAccessToken={TOKEN}
-        width="100%"
-        height="100%"
         transitionDuration="100"
         mapStyle="mapbox://styles/jchylton/clq4ipfqv01ap01qmarzc99ez"
-        onViewportChange={(viewPort) => setViewPort(viewPort)}
+        onMove={(viewPort) => setViewPort(viewPort)}
         onDblClick={handleClick}
+        dragPan={true}
+        scrollZoom={true}
+        doubleClickZoom={true}
       >
         {coffeeShops.map((e) => {
           return (
