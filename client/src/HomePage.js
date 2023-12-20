@@ -4,6 +4,7 @@ import ReactMapGl, { Marker, Room } from "react-map-gl";
 import { useState, useEffect } from "react";
 import RecommendationPage from "./RecommendationPage";
 import RoomIcon from "@mui/icons-material/Room";
+import styled from "styled-components";
 
 const TOKEN =
   "pk.eyJ1IjoiamNoeWx0b24iLCJhIjoiY2xxNGhtY242MDdydjJrbXQ1ZWZxZjI2NCJ9.xolos8FfF0kzz3XMdJSGmw";
@@ -39,39 +40,58 @@ const HomePage = () => {
     });
   }
   return (
-    <div style={{ width: "100vw", height: "100vh", zIndex: 999 }}>
-      <ReactMapGl
-        {...viewPort}
-        mapboxAccessToken={TOKEN}
-        transitionDuration="100"
-        mapStyle="mapbox://styles/jchylton/clq4ipfqv01ap01qmarzc99ez"
-        onMove={(viewPort) => setViewPort(viewPort)}
-        onDblClick={handleClick}
-        dragPan={true}
-        scrollZoom={true}
-        doubleClickZoom={true}
-      >
-        {coffeeShops.map((e) => {
-          return (
-            <Marker
-              latitude={e?.properties.lat}
-              longitude={e?.properties.lon}
-              offsetLeft={-3.5 * viewPort.zoom}
-              offsetTop={-7 * viewPort.zoom}
-            >
-              <RoomIcon
-                style={{
-                  fontSize: 4 * viewPort.zoom,
-                  color: "tomato",
-                  cursor: "pointer",
-                }}
-              />
-            </Marker>
-          );
-        })}
-      </ReactMapGl>
-    </div>
+    <Page>
+      <Wrapper1 style={{ width: "90vw", height: "90vh", zIndex: 999 }}>
+        <ReactMapGl
+          {...viewPort}
+          mapboxAccessToken={TOKEN}
+          transitionDuration="100"
+          mapStyle="mapbox://styles/jchylton/clq4ipfqv01ap01qmarzc99ez"
+          onMove={(viewPort) => setViewPort(viewPort)}
+          onDblClick={handleClick}
+          dragPan={true}
+          scrollZoom={true}
+          doubleClickZoom={true}
+        >
+          {coffeeShops.map((e) => {
+            return (
+              <Marker
+                latitude={e?.properties.lat}
+                longitude={e?.properties.lon}
+                offsetLeft={-3.5 * viewPort.zoom}
+                offsetTop={-7 * viewPort.zoom}
+              >
+                <RoomIcon
+                  style={{
+                    fontSize: 4 * viewPort.zoom,
+                    color: "tomato",
+                    cursor: "pointer",
+                  }}
+                />
+              </Marker>
+            );
+          })}
+        </ReactMapGl>
+      </Wrapper1>
+    </Page>
   );
 };
 
 export default HomePage;
+
+const Wrapper1 = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 90vw;
+  height: 90vh;
+  border: 1px solid black;
+`;
+
+const Page = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  height: 100vh;
+`;
