@@ -18,8 +18,8 @@ const getVisited = async (req, res) => {
     const allUsers = await db.collection("community").find().toArray();
     const visitedArray = [];
     allUsers.forEach((user) => {
-      user.recommendation.forEach((coffeeShop) => {
-        if (!visitedArray.contains(coffeeShop.name)) {
+      user.Recommendations.forEach((coffeeShop) => {
+        if (!visitedArray.includes(coffeeShop.name)) {
           visitedArray.push(coffeeShop);
         }
       });

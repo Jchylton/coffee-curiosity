@@ -16,7 +16,9 @@ const Login = async (req, res) => {
     await client.connect();
     const db = client.db("coffeecuriosity");
     const allUsers = await db.collection("community").find().toArray();
-    if (!allUsers.every((u) => u.email == req.body.email)) {
+    console.log(allUsers);
+    console.log(req.body);
+    if (allUsers.every((u) => u.Email !== req.body.Email)) {
       const addUser = await db.collection("community").insertOne(req.body);
       return res.status(201).json({ status: 201, data: "User Added" });
     } else {

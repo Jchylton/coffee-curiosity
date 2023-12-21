@@ -17,7 +17,7 @@ const updateUser = async (req, res) => {
     const db = client.db("coffeecuriosity");
     const oneUser = await db
       .collection("community")
-      .updateOne({ _id: req.params.user_id }, { $set: req.body });
+      .updateOne({ Email: req.params.user_email }, { $set: req.body });
     return res.status(201).json({ status: 201, data: oneUser });
   } catch (err) {
     console.log(err.stack);

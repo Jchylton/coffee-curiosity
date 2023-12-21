@@ -17,14 +17,14 @@ const addRecommendation = async (req, res) => {
     const db = client.db("coffeecuriosity");
     const oneUser = await db
       .collection("community")
-      .findOne({ _id: req.params.user_id });
-    const newRecommendations = oneUser.Recommendation;
+      .findOne({ Email: req.params.user_email });
+    const newRecommendations = oneUser.Recommendations;
     newRecommendations.push(req.body);
     const changedUser = await db
       .collection("community")
       .updateOne(
-        { _id: req.params.user_id },
-        { $set: { Recommendation: newRecommendations } }
+        { Email: req.params.user_email },
+        { $set: { Recommendations: newRecommendations } }
       );
     return res.status(201).json({ status: 201, data: oneUser });
   } catch (err) {
@@ -34,3 +34,5 @@ const addRecommendation = async (req, res) => {
     client.close();
   }
 };
+
+module.exports = { addRecommendation };

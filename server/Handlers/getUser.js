@@ -17,7 +17,7 @@ const getUser = async (req, res) => {
     const db = client.db("coffeecuriosity");
     const oneUser = await db
       .collection("community")
-      .findOne({ _id: req.params.user_id });
+      .findOne({ Email: req.params.user_email });
     return res.status(201).json({ status: 201, data: oneUser });
   } catch (err) {
     console.log(err.stack);

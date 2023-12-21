@@ -18,8 +18,8 @@ const getRecommendation = async (req, res) => {
     const allUsers = await db.collection("community").find().toArray();
     const recommendationsArray = [];
     allUsers.forEach((user) => {
-      user.recommendation.forEach((coffeeShop) => {
-        if (coffeeShop.name == req.params.coffee_id) {
+      user.Recommendations.forEach((coffeeShop) => {
+        if (coffeeShop.name == req.params.coffee_name) {
           recommendationsArray.push({
             _id: user._id,
             username: user.username,

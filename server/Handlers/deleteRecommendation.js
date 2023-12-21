@@ -11,13 +11,23 @@ const client = new MongoClient(MONGO_URI, {
   useNewUrlParser: true,
 });
 
-const deleteUser = async (req, res) => {
+const deleteRecommendation = async (req, res) => {
   try {
     await client.connect();
     const db = client.db("coffeecuriosity");
     const oneUser = await db
       .collection("community")
-      .deleteOne({ _id: req.params.user_id });
+      .findOne({ Email: req.params.user_email });
+    let newRecommendations = oneUser.Recommendations;
+    newRecommendations = newRecommendations.filter(
+      (r) => r.name !== req.params.coffee_name
+    );
+    const changedUser = await db
+      .collection("community")
+      .updateOne(
+        { Email: req.params.user_email },
+        { $set: { Recommendations: newRecommendations } }
+      );
     return res.status(204).json({ status: 204, data: "Success" });
   } catch (err) {
     console.log(err.stack);
@@ -27,4 +37,4 @@ const deleteUser = async (req, res) => {
   }
 };
 
-module.exports = { deleteUser };
+module.exports = { deleteRecommendation };
