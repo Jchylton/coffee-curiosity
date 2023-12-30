@@ -63,7 +63,7 @@ const HomePage = () => {
               >
                 <RoomIcon
                   style={{
-                    fontSize: 6 * viewPort.zoom,
+                    fontSize: 4.4 * viewPort.zoom,
                     color: "tomato",
                     cursor: "pointer",
                   }}
@@ -94,4 +94,6 @@ const Page = styled.div`
   justify-content: center;
   width: 100vw;
   height: 100vh;
+  background-size: cover;
+  background-image: url("/Assets/Coffee.jpg");
 `;
