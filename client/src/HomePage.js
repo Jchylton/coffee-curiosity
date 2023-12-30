@@ -63,7 +63,7 @@ const HomePage = () => {
               >
                 <RoomIcon
                   style={{
-                    fontSize: 4 * viewPort.zoom,
+                    fontSize: 6 * viewPort.zoom,
                     color: "tomato",
                     cursor: "pointer",
                   }}
