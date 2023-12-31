@@ -6,10 +6,32 @@ import styled from "styled-components";
 
 const LandingPage = () => {
   const navigate = useNavigate();
-  const { loginWithRedirect, logout, isAuthenticated } = useAuth0();
+  const { loginWithRedirect, logout, isAuthenticated, user } = useAuth0();
   useEffect(() => {
     if (isAuthenticated) {
-      navigate("/HomePage");
+      console.log(user);
+      fetch("/login", {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          _id: user.email,
+          name: user.name,
+          Email: user.email,
+          memberSince: user.updated_at.slice(0, 11),
+          Recommendations: [],
+        }),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          navigate("/HomePage");
+          console.log(data);
+        })
+        .catch((error) => {
+          window.alert(error);
+        });
     }
   }, [isAuthenticated]);
   return (

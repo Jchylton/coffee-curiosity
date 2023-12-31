@@ -1,126 +1,89 @@
 import React from "react";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useAuth0 } from "@auth0/auth0-react";
+import styled from "styled-components";
 
 const RecommendationPage = () => {
-  return <div>RecommendationPage</div>;
+  const [formData, setFormData] = useState({});
+  const { loginWithRedirect, logout, isAuthenticated, user } = useAuth0();
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log("Form data submitted:", formData);
+    fetch(`/addrecommendation/${user.email}`, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formData),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+      })
+      .catch((error) => {
+        window.alert(error);
+      });
+  };
+
+  return (
+    <div>
+      <form onSubmit={handleSubmit}>
+        <label>
+          Rating:
+          <input
+            type="number"
+            name="rating"
+            value={formData?.rating}
+            onChange={handleChange}
+            required
+          />
+        </label>
+        <br />
+        <label>
+          Recommendation:
+          <textarea
+            name="recommendation"
+            value={formData?.recommendation}
+            onChange={handleChange}
+            required
+          />
+        </label>
+        <button type="submit" onClick={handleSubmit}>
+          Save Recommendation
+        </button>
+      </form>
+    </div>
+  );
 };
 
 export default RecommendationPage;
 
-// function CheckOut() {
-//   const navigate = useNavigate();
-//   const [formData, setFormData] = useState({
-//     firstName: "",
-//     lastName: "",
-//     address: "",
-//     creditCard: "",
-//     expirationDate: "",
-//     ccv: "",
-//     // Add other necessary fields
-//   });
+// const Submit = styled.button`
+//   background-color: #d1560e;
+//   border: none;
+//   margin-top: 5px;
+//   border-radius: 2px;
 
-//   const handleChange = (e) => {
-//     const { name, value } = e.target;
-//     setFormData((prevData) => ({
-//       ...prevData,
-//       [name]: value,
-//     }));
-//   };
+//   &:disabled{
+//       color: var(--color-orange);
+//   }
+// `
 
-//   const handleSubmit = (e) => {
-//     e.preventDefault();
-//     console.log("Form data submitted:", formData);
-//     fetch("/addPurchase", {
-//       method: "POST",
-//       headers: {
-//         Accept: "application/json",
-//         "Content-Type": "application/json",
-//       },
-//     })
-//       .then((res) => res.json())
-//       .then((data) => {
-//         navigate(`/Confirmation/${formData.firstName}`);
-//         console.log(data);
-//       })
-//       .catch((error) => {
-//         window.alert(error);
-//       });
-//   };
-
-//   return (
-//     <div>
-//       <h2>Checkout</h2>
-//       <form onSubmit={handleSubmit}>
-//         <label>
-//           First Name:
-//           <input
-//             type="text"
-//             name="firstName"
-//             value={formData.firstName}
-//             onChange={handleChange}
-//             required
-//           />
-//         </label>
-//         <br />
-//         <label>
-//           Last Name:
-//           <input
-//             type="text"
-//             name="lastName"
-//             value={formData.lastName}
-//             onChange={handleChange}
-//             required
-//           />
-//         </label>
-//         <br />
-//         <label>
-//           Billing Address:
-//           <textarea
-//             name="address"
-//             value={formData.address}
-//             onChange={handleChange}
-//             required
-//           />
-//         </label>
-//         <br />
-//         <label>
-//           Credit Card:
-//           <input
-//             type="text"
-//             name="creditCard"
-//             value={formData.creditCard}
-//             onChange={handleChange}
-//             required
-//           />
-//         </label>
-//         <br />
-//         <label>
-//           Expiration Date:
-//           <input
-//             type="text"
-//             name="expirationDate"
-//             value={formData.expirationDate}
-//             onChange={handleChange}
-//             required
-//           />
-//         </label>
-//         <br />
-//         <label>
-//           CCV:
-//           <input
-//             type="text"
-//             name="ccv"
-//             value={formData.ccv}
-//             onChange={handleChange}
-//             required
-//           />
-//         </label>
-//         <br />
-//         <button type="submit" onClick={handleSubmit}>
-//           Submit Order
-//         </button>
-//       </form>
-//     </div>
-//   );
-// }
-
-// export default CheckOut;
+// const StyledForm = styled.form`
+//   margin-top: 24px;
+//   border: 5px solid var(--color-alabama-crimson);
+//   padding: 30px;
+//   margin: auto 0px auto;
+//   display: flex;
+//   flex-direction: column;
+//   margin-left: 50px;
+// `

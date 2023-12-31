@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 import RecommendationPage from "./RecommendationPage";
 import RoomIcon from "@mui/icons-material/Room";
 import styled from "styled-components";
+import { Navigate, useNavigate } from "react-router-dom";
 
 const TOKEN =
   "pk.eyJ1IjoiamNoeWx0b24iLCJhIjoiY2xxNGhtY242MDdydjJrbXQ1ZWZxZjI2NCJ9.xolos8FfF0kzz3XMdJSGmw";
@@ -12,6 +13,7 @@ const TOKEN =
 const TOKEN2 = "bad348c5308142d4b04a8abeae954d98";
 
 const HomePage = () => {
+  const navigate = useNavigate();
   const [newPlace, setNewPlace] = useState(null);
   const [viewPort, setViewPort] = useState({
     latitude: 43.4516,
@@ -56,6 +58,9 @@ const HomePage = () => {
           {coffeeShops.map((e) => {
             return (
               <Marker
+                onClick={() => {
+                  navigate(`/CoffeeShopPage/${e.properties.place_id}`);
+                }}
                 latitude={e?.properties.lat}
                 longitude={e?.properties.lon}
                 offsetLeft={-3.5 * viewPort.zoom}
