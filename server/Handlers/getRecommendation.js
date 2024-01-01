@@ -12,6 +12,7 @@ const client = new MongoClient(MONGO_URI, {
 });
 
 const getRecommendation = async (req, res) => {
+  console.log(req.params.coffee_id);
   try {
     await client.connect();
     const db = client.db("coffeecuriosity");
@@ -19,13 +20,13 @@ const getRecommendation = async (req, res) => {
     const recommendationsArray = [];
     allUsers.forEach((user) => {
       user.Recommendations.forEach((coffeeShop) => {
-        if (coffeeShop.name == req.params.coffee_name) {
+        if (coffeeShop.Id == req.params.coffee_id) {
           recommendationsArray.push({
             _id: user._id,
-            username: user.username,
-            email: user.email,
+            name: user.name,
+            Email: user.email,
             rating: coffeeShop.rating,
-            comment: coffeeShop.comment,
+            recommendation: coffeeShop.recommendation,
           });
         }
       });

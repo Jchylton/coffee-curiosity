@@ -28,7 +28,9 @@ const deleteRecommendation = async (req, res) => {
         { Email: req.params.user_email },
         { $set: { Recommendations: newRecommendations } }
       );
-    return res.status(204).json({ status: 204, data: "Success" });
+    return res
+      .status(201)
+      .json({ status: 201, data: "Recommendation Deleted" });
   } catch (err) {
     console.log(err.stack);
     res.status(500).json({ status: 500, error: err.message });

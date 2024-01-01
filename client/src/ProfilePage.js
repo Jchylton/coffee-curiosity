@@ -1,10 +1,11 @@
 import React from "react";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 import styled from "styled-components";
 
 const ProfilePage = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({});
   const { loginWithRedirect, logout, isAuthenticated, user } = useAuth0();
   useEffect(() => {
@@ -43,6 +44,7 @@ const ProfilePage = () => {
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
+        navigate("/HomePage");
       })
       .catch((error) => {
         window.alert(error);

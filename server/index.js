@@ -31,10 +31,10 @@ app.get("/getvisited", getVisited);
 app.get("/getuser/:user_email", getUser);
 app.patch("/updateuser/:user_email", updateUser);
 app.delete(
-  "/deleterecommendation/:user_email/:coffee_name",
+  "/deleterecommendation/:user_email/:coffee_id",
   deleteRecommendation
 );
-app.get("/getRecommendation/:coffee_name", getRecommendation);
+app.get("/getRecommendation/:coffee_id", getRecommendation);
 app.post("/addrecommendation/:user_email", addRecommendation);
 
 app.listen(port, () => {

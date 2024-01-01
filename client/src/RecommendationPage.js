@@ -1,10 +1,20 @@
 import React from "react";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate, useParams } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 import styled from "styled-components";
 
-const RecommendationPage = () => {
+const RecommendationPage = ({ coffeeShops }) => {
+  const navigate = useNavigate();
+  const { coffee } = useParams();
+  const [coffeeShop, setCoffeeShop] = useState(null);
+  useEffect(() => {
+    setCoffeeShop(() => {
+      return coffeeShops.find((c) => {
+        return c.properties.place_id == coffee;
+      });
+    });
+  }, [coffeeShops]);
   const [formData, setFormData] = useState({});
   const { loginWithRedirect, logout, isAuthenticated, user } = useAuth0();
   const handleChange = (e) => {
@@ -23,11 +33,17 @@ const RecommendationPage = () => {
         Accept: "application/json",
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(formData),
+      body: JSON.stringify({
+        ...formData,
+        Name: coffeeShop?.properties.name,
+        Address: coffeeShop?.properties.address_line2,
+        Id: coffeeShop?.properties.place_id,
+      }),
     })
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
+        navigate(`/CoffeeShopPage/${coffee}`);
       })
       .catch((error) => {
         window.alert(error);

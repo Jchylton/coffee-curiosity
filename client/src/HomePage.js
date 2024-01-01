@@ -12,26 +12,24 @@ const TOKEN =
 
 const TOKEN2 = "bad348c5308142d4b04a8abeae954d98";
 
-const HomePage = () => {
+const HomePage = ({ coffeeShops, setCoffeeShops }) => {
   const navigate = useNavigate();
+  const [visited, setVisited] = useState([]);
   const [newPlace, setNewPlace] = useState(null);
   const [viewPort, setViewPort] = useState({
     latitude: 43.4516,
     longitude: -80.495064,
     zoom: 13,
   });
-
-  const [coffeeShops, setCoffeeShops] = useState([]);
   useEffect(() => {
-    fetch(
-      `https://api.geoapify.com/v2/places?categories=catering.cafe.coffee_shop,catering.cafe.coffee,catering.cafe&filter=circle:-80.495064,43.4516,1000&limit=20&apiKey=${TOKEN2}`
-    )
+    fetch("/getvisited")
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
-        setCoffeeShops(data.features);
+        setVisited(data.data.map((r) => r.Id));
       });
   }, []);
+  console.log(visited);
   function handleClick(e) {
     console.log(newPlace);
     console.log(e.lngLat);
@@ -66,13 +64,23 @@ const HomePage = () => {
                 offsetLeft={-3.5 * viewPort.zoom}
                 offsetTop={-7 * viewPort.zoom}
               >
-                <RoomIcon
-                  style={{
-                    fontSize: 4.4 * viewPort.zoom,
-                    color: "tomato",
-                    cursor: "pointer",
-                  }}
-                />
+                {visited.includes(e?.properties.place_id) ? (
+                  <RoomIcon
+                    style={{
+                      fontSize: 4.4 * viewPort.zoom,
+                      color: "green",
+                      cursor: "pointer",
+                    }}
+                  />
+                ) : (
+                  <RoomIcon
+                    style={{
+                      fontSize: 4.4 * viewPort.zoom,
+                      color: "tomato",
+                      cursor: "pointer",
+                    }}
+                  />
+                )}
               </Marker>
             );
           })}
