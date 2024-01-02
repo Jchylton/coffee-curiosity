@@ -32,8 +32,9 @@ const HeaderContainer = styled.header`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 5px;
+  /* padding: 5px; */
   background-color: #fff3d9;
+  max-width: 100%;
 `;
 const Title = styled.h1`
   font-size: 32px;

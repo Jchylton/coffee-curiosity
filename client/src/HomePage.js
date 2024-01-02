@@ -98,7 +98,8 @@ const Wrapper1 = styled.div`
   justify-content: center;
   width: 90vw;
   height: 90vh;
-  border: 1px solid black;
+  border: 2px solid #3d1e1e;
+  border-radius: 20px;
 `;
 
 const Page = styled.div`

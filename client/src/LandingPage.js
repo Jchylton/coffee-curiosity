@@ -36,7 +36,18 @@ const LandingPage = () => {
   }, [isAuthenticated]);
   return (
     <Page>
-      <div>LandingPage</div>;
+      <Background>
+        <Wrapper>
+          <Bio>
+            A community where coffee connoisseurs can locate, taste, and rate
+            the exquisite experiences being offered by local coffee shops in
+            your area. Community users will be able to log into the app and see
+            where local shops exist in their area and also see what coffee shops
+            other coffee connoisseurs have rated for their next visit!
+          </Bio>
+          <Tagline>FIND | CONNECT | ENJOY THE AROMA</Tagline>
+        </Wrapper>
+      </Background>
     </Page>
   );
 };
@@ -51,4 +62,44 @@ const Page = styled.div`
   height: 100vh;
   background-size: cover;
   background-image: url("/Assets/Coffee.jpg");
+`;
+const Background = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  background-size: cover;
+  background-image: url("/Assets/Couple_Pic.jpg");
+  width: 90vw;
+  height: 90vh;
+`;
+
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #fff3d9;
+  color: #3d1e1e;
+  font-family: helvetica;
+  border: 2px solid #3d1e1e;
+  border-radius: 15px;
+  padding: 36px;
+  width: 75%;
+`;
+
+const Bio = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+`;
+
+const Tagline = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 32px;
+  font-weight: bold;
+  font-size: 28px;
 `;
