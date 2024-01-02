@@ -55,8 +55,9 @@ const ProfilePage = () => {
   return (
     <Page>
       <StyledForm onSubmit={handleSubmit}>
+        <Title>View/Edit Profile</Title>
         <Label>
-          Name:
+          Username:
           <Input1
             type="text"
             name="name"
@@ -76,9 +77,9 @@ const ProfilePage = () => {
           <Input3 name="memberSince" value={formData?.memberSince} required />
         </Label>
         <br />
-        <button type="submit" onClick={handleSubmit}>
+        <Submit type="submit" onClick={handleSubmit}>
           Save Profile
-        </button>
+        </Submit>
       </StyledForm>
     </Page>
   );
@@ -94,6 +95,14 @@ const Page = styled.div`
   height: 100vh;
   background-size: cover;
   background-image: url("/Assets/Coffee.jpg");
+`;
+
+const Title = styled.h1`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #3d1e1e;
+  font-family: helvetica;
 `;
 
 const StyledForm = styled.form`
@@ -152,23 +161,12 @@ const Label = styled.label`
   font-family: helvetica;
 `;
 
-// const Submit = styled.button`
-//   background-color: #d1560e;
-//   border: none;
-//   margin-top: 5px;
-//   border-radius: 2px;
-
-//   &:disabled{
-//       color: var(--color-orange);
-//   }
-// `
-
-// const StyledForm = styled.form`
-//   margin-top: 24px;
-//   border: 5px solid var(--color-alabama-crimson);
-//   padding: 30px;
-//   margin: auto 0px auto;
-//   display: flex;
-//   flex-direction: column;
-//   margin-left: 50px;
-// `
+const Submit = styled.button`
+  background-color: #3d1e1e;
+  color: #fff3d9;
+  font-size: 40px
+  border: none;
+  margin-top: 5px;
+  border-radius: 5px;
+  padding: 10px;
+`;

@@ -100,6 +100,5 @@ const Tagline = styled.div`
   align-items: center;
   justify-content: center;
   margin: 32px;
-  font-weight: bold;
   font-size: 28px;
 `;

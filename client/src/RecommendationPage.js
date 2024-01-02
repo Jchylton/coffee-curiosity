@@ -51,55 +51,107 @@ const RecommendationPage = ({ coffeeShops }) => {
   };
 
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
-        <label>
+    <Page>
+      <StyledForm onSubmit={handleSubmit}>
+        <Title>Enter User Recommendation</Title>
+        <Label>
           Rating:
-          <input
+          <Input1
             type="number"
             name="rating"
             value={formData?.rating}
             onChange={handleChange}
             required
           />
-        </label>
-        <br />
-        <label>
+        </Label>
+        <Label>
           Recommendation:
-          <textarea
+          <Input2
             name="recommendation"
             value={formData?.recommendation}
             onChange={handleChange}
             required
           />
-        </label>
-        <button type="submit" onClick={handleSubmit}>
+        </Label>
+        <Submit type="submit" onClick={handleSubmit}>
           Save Recommendation
-        </button>
-      </form>
-    </div>
+        </Submit>
+      </StyledForm>
+    </Page>
   );
 };
 
 export default RecommendationPage;
 
-// const Submit = styled.button`
-//   background-color: #d1560e;
-//   border: none;
-//   margin-top: 5px;
-//   border-radius: 2px;
+const Page = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  height: 100vh;
+  background-size: cover;
+  background-image: url("/Assets/Coffee.jpg");
+`;
 
-//   &:disabled{
-//       color: var(--color-orange);
-//   }
-// `
+const Title = styled.h1`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #3d1e1e;
+  font-family: helvetica;
+`;
 
-// const StyledForm = styled.form`
-//   margin-top: 24px;
-//   border: 5px solid var(--color-alabama-crimson);
-//   padding: 30px;
-//   margin: auto 0px auto;
-//   display: flex;
-//   flex-direction: column;
-//   margin-left: 50px;
-// `
+const StyledForm = styled.form`
+  margin-top: 24px;
+  background-color: #fff3d9;
+  border: 2px solid #3d1e1e;
+  border-radius: 10px;
+  padding: 50px;
+  margin: auto 0px auto;
+  display: flex;
+  flex-direction: column;
+  margin-left: 50px;
+  color: #3d1e1e;
+  font-family: helvetica;
+  box-sizing: border-box;
+  /* padding: 2rem; */
+  display: grid;
+  gap: 1rem;
+`;
+
+const Input1 = styled.input`
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  color: #3d1e1e;
+  font-family: helvetica;
+  border: 1px solid #3d1e1e;
+  border-radius: 5px;
+`;
+
+const Input2 = styled.textarea`
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  color: #3d1e1e;
+  font-family: helvetica;
+  border: 1px solid #3d1e1e;
+  border-radius: 5px;
+`;
+
+const Label = styled.label`
+  font-weight: bold;
+  font-family: helvetica;
+`;
+
+const Submit = styled.button`
+  background-color: #3d1e1e;
+  color: #fff3d9;
+  font-size: 40px
+  border: none;
+  margin-top: 5px;
+  border-radius: 5px;
+  padding: 10px;
+`;
