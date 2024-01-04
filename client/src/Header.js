@@ -40,10 +40,10 @@ const HeaderContainer = styled.header`
   justify-content: space-between;
   /* padding: 5px; */
   background-color: #fff3d9;
-  width: 100%;
+  min-width: 100vw;
 `;
 const Title = styled.h1`
-  font-size: 32px;
+  font-size: 36px;
   font-weight: bold;
   color: #3d1e1e;
   font-family: helvetica;
@@ -60,6 +60,7 @@ const LogoImg = styled.img`
 const LoginIcon = styled.img`
   width: 65px;
   height: 65px;
+  padding-right: 10px;
 `;
 
 // const Navigation = styled.nav`
