@@ -20,7 +20,7 @@ const LandingPage = () => {
           _id: user.email,
           name: user.name,
           Email: user.email,
-          memberSince: user.updated_at.slice(0, 11),
+          memberSince: user.updated_at.slice(0, 10),
           Recommendations: [],
         }),
       })

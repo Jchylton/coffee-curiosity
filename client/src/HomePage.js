@@ -6,6 +6,7 @@ import RecommendationPage from "./RecommendationPage";
 import RoomIcon from "@mui/icons-material/Room";
 import styled from "styled-components";
 import { Navigate, useNavigate } from "react-router-dom";
+import { useAuth0 } from "@auth0/auth0-react";
 
 const TOKEN =
   "pk.eyJ1IjoiamNoeWx0b24iLCJhIjoiY2xxNGhtY242MDdydjJrbXQ1ZWZxZjI2NCJ9.xolos8FfF0kzz3XMdJSGmw";
@@ -13,6 +14,7 @@ const TOKEN =
 const TOKEN2 = "bad348c5308142d4b04a8abeae954d98";
 
 const HomePage = ({ coffeeShops, setCoffeeShops }) => {
+  const { loginWithRedirect, logout, isAuthenticated } = useAuth0();
   const navigate = useNavigate();
   const [visited, setVisited] = useState([]);
   const [newPlace, setNewPlace] = useState(null);
@@ -41,6 +43,7 @@ const HomePage = ({ coffeeShops, setCoffeeShops }) => {
   }
   return (
     <Page>
+      <button onClick={() => logout()}>Sign Out</button>
       <Wrapper1 style={{ width: "90vw", height: "90vh", zIndex: 999 }}>
         <ReactMapGl
           {...viewPort}
@@ -104,6 +107,7 @@ const Wrapper1 = styled.div`
 
 const Page = styled.div`
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   width: 100vw;

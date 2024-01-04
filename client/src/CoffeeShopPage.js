@@ -3,6 +3,7 @@ import { Navigate, useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import styled from "styled-components";
+import ReactStars from "react-rating-stars-component";
 
 const TOKEN2 = "bad348c5308142d4b04a8abeae954d98";
 
@@ -62,6 +63,7 @@ const CoffeeShopPage = ({ coffeeShops }) => {
           <h2>Website: {coffeeShop?.properties.datasource.raw.website}</h2>
         </div>
         <Submit
+          disabled={!recommendation.every((r) => r._id != user.email)}
           onClick={() => {
             navigate(`/RecommendationPage/${coffeeShop?.properties.place_id}`);
           }}
@@ -69,14 +71,20 @@ const CoffeeShopPage = ({ coffeeShops }) => {
           Add Recommendation
         </Submit>
       </Info>
-      <Info>
-        {isAuthenticated &&
-          recommendation?.map((rec) => {
+      {isAuthenticated && recommendation.length > 0 && (
+        <Info>
+          {recommendation?.map((rec) => {
             return (
               <>
                 {/* <Intro2>User Recommendation</Intro2> */}
                 <div>Username: {rec.name}</div>
-                <div>Rating: {rec.rating}</div>
+                <ReactStars
+                  value={rec.rating}
+                  edit={false}
+                  count={5}
+                  size={24}
+                  activeColor="#ffd700"
+                />
                 <div>Comment: {rec.recommendation}</div>
                 <Delete
                   disabled={user.email !== rec._id}
@@ -89,7 +97,8 @@ const CoffeeShopPage = ({ coffeeShops }) => {
               </>
             );
           })}
-      </Info>
+        </Info>
+      )}
     </Page>
   );
 };
@@ -101,8 +110,8 @@ const Page = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  min-height: 100vh;
   padding: 20px;
   background-size: cover;
   background-image: url("/Assets/Coffee.jpg");
@@ -112,12 +121,11 @@ const Info = styled.div`
   margin-top: 24px;
   background-color: #fff3d9;
   border: 2px solid #3d1e1e;
+  height: 100%;
   border-radius: 10px;
   padding: 50px;
-  margin: auto 0px auto;
   display: flex;
   flex-direction: column;
-  margin-left: 50px;
   color: #3d1e1e;
   font-family: helvetica;
   box-sizing: border-box;

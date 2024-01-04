@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 import styled from "styled-components";
+import ReactStars from "react-rating-stars-component";
 
 const RecommendationPage = ({ coffeeShops }) => {
   const navigate = useNavigate();
@@ -58,6 +59,8 @@ const RecommendationPage = ({ coffeeShops }) => {
           Rating:
           <Input1
             type="number"
+            min="1"
+            max="5"
             name="rating"
             value={formData?.rating}
             onChange={handleChange}

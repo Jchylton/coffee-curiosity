@@ -15,13 +15,19 @@ const Header = () => {
       </LogoContainer>
       <Title>COFFEE CURIOSITY</Title>
       {!isAuthenticated ? (
-        <button onClick={() => loginWithRedirect()}>Sign In</button>
+        <LoginIcon
+          src="/Assets/Login.png"
+          atl="logo"
+          onClick={() => loginWithRedirect()}
+        />
       ) : (
-        <button onClick={() => logout()}>Sign Out</button>
+        <></>
       )}
-      <Link to="/ProfilePage/:user">
-        <LoginIcon src="/Assets/Login.png" atl="logo" />
-      </Link>
+      {isAuthenticated && (
+        <Link to="/ProfilePage/:user">
+          <LoginIcon src="/Assets/Login.png" atl="logo" />
+        </Link>
+      )}
     </HeaderContainer>
   );
 };
@@ -34,7 +40,7 @@ const HeaderContainer = styled.header`
   justify-content: space-between;
   /* padding: 5px; */
   background-color: #fff3d9;
-  max-width: 100%;
+  width: 100%;
 `;
 const Title = styled.h1`
   font-size: 32px;
